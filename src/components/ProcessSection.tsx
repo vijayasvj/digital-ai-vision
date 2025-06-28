@@ -1,62 +1,105 @@
-import { Search, Code, Cog } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
-import { useState, useEffect } from 'react';
+import { ClipboardCheck, Code2, TrendingUp } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const ProcessSection = () => {
-  const [processData, setProcessData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [isInView, setIsInView] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  const processSteps = [
+    {
+      number: "01",
+      title: "Analyze",
+      description: "We start with a thorough analysis of your current workflows to see how AI could improve your processes.",
+      icon: ClipboardCheck,
+    },
+    {
+      number: "02",
+      title: "Build & Implement",
+      description: "Then, our developers will start crafting custom AI-solutions for your company, continuously prioritising quality and safety.",
+      icon: Code2,
+    },
+    {
+      number: "03",
+      title: "Maintain & Improve",
+      description: "After deployment, our team will keep working hard by providing support and continuously improving the implemented solutions.",
+      icon: TrendingUp,
+    },
+  ];
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/content/landingpage/ProcessSection.json');
-        if (!response.ok) throw new Error('Failed to fetch process data');
-        const data = await response.json();
-        setProcessData(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
       }
     };
-    fetchData();
   }, []);
 
-  if (loading) return <div className="py-20 text-center">Loading process...</div>;
-  if (error) return <div className="py-20 text-center text-red-500">Error: {error}</div>;
-
-  const { title = "The process", highlight = "process", steps = [] } = processData || {};
-  const iconComponents = { Search, Code, Cog };
-
   return (
-    <section className="py-20 bg-white text-black" id="process">
-      <div className="container mx-auto px-8 lg:px-16">
-      <h2 className="text-5xl md:text-6xl font-bold mb-16 text-black">
-  {title.replace(highlight, '').trim()}{' '}
-  {highlight && <span className="text-adrig-blue">{highlight}</span>}
-</h2>
+    <section ref={sectionRef} className="py-20 bg-white">
+      <div className="container mx-auto px-4">
+        <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-800">
+          The Process
+        </h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {steps.map((step) => {
-            const IconComponent = iconComponents[step.icon] || Search;
-            return (
-              <div key={step.number} className="process-step">
-                <Card className="bg-white border-gray-200 shadow-lg h-full rounded-xl overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                  <CardContent className="p-8 flex flex-col h-full items-center text-center">
-                    <div className="bg-gray-100 p-4 mb-6 w-24 h-24 flex justify-center items-center rounded-full shadow-md">
-                      <IconComponent size={36} className="text-adrig-blue" />
+        {/* Desktop View */}
+        <div className="hidden md:block">
+          <div className="relative max-w-6xl mx-auto">
+            {/* The connecting line */}
+            <div className={`absolute top-12 left-0 w-full h-0.5 bg-blue-500 ${isInView ? 'animate-draw-line' : ''}`} />
+            
+            <div className="flex justify-between items-start">
+              {processSteps.map((step) => (
+                <div key={step.number} className="w-1/3 text-center px-4">
+                  <div className="relative mb-8">
+                    <div className="w-24 h-24 mx-auto bg-white border-2 border-blue-500 rounded-full flex items-center justify-center z-10 relative">
+                      <step.icon className="w-12 h-12 text-blue-500" />
                     </div>
-                    <h3 className="text-3xl font-bold mb-2 text-black flex items-center justify-center">
-                      <span className="text-adrig-blue mr-2">{step.number}</span> {step.title}
-                    </h3>
-                    <p className="text-gray-600 mt-4">{step.description}</p>
-                  </CardContent>
-                </Card>
-              </div>
-            );
-          })}
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4 text-gray-800">
+                    <span className="text-gray-400 mr-3">{step.number}</span>
+                    {step.title}
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">{step.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
+
+        {/* Mobile View */}
+        <div className="md:hidden">
+          {processSteps.map((step, index) => (
+            <div key={index} className="flex flex-col items-center text-center mb-12">
+              <div className="w-24 h-24 bg-white border-2 border-blue-500 rounded-full flex items-center justify-center mb-4 z-10">
+                <step.icon className="w-12 h-12 text-blue-500" />
+              </div>
+              <h3 className="text-2xl font-bold mb-4 text-gray-800">
+                <span className="text-gray-400 mr-3">{step.number}</span>
+                {step.title}
+              </h3>
+              <p className="text-gray-600 px-4">{step.description}</p>
+              
+              {index < processSteps.length - 1 && (
+                  <div className="w-0.5 h-16 bg-blue-500 my-4" />
+              )}
+            </div>
+          ))}
+        </div>
+
       </div>
     </section>
   );

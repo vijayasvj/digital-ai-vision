@@ -1,4 +1,3 @@
-
 import { Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -78,7 +77,7 @@ const PricingSection = () => {
               key={index} 
               className={`pricing-card ${plan.isFeatured ? 'pricing-card-featured' : ''}`}
             >
-              <h3 className={`text-xl font-bold mb-2 ${plan.isFeatured ? 'text-white' : 'text-adrig-black'}`}>
+              <h3 className={`text-xl font-bold mb-2 ${plan.isFeatured ? 'text-white' : 'text-black'}`}>
                 {plan.name}
               </h3>
               <p className={`text-sm mb-4 ${plan.isFeatured ? 'text-white/80' : 'text-gray-500'}`}>
@@ -86,7 +85,7 @@ const PricingSection = () => {
               </p>
               
               <div className="mb-6">
-                <span className={`text-3xl font-bold ${plan.isFeatured ? 'text-white' : 'text-adrig-black'}`}>
+                <span className={`text-3xl font-bold ${plan.isFeatured ? 'text-white' : 'text-black'}`}>
                   {plan.price}
                 </span>
                 <span className={`text-sm ${plan.isFeatured ? 'text-white/80' : 'text-gray-500'}`}>

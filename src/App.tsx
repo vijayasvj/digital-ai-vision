@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -52,6 +51,12 @@ import ContentGeneration from "./pages/services/llm-development/ContentGeneratio
 import Strategy from "./pages/services/ai-consulting/Strategy";
 import Assessment from "./pages/services/ai-consulting/Assessment";
 import Implementation from "./pages/services/ai-consulting/Implementation";
+
+import ServicePage from "./pages/ServicePage";
+import ProductPage from "./pages/ProductPage";
+import WorkPage from "./pages/WorkPage";
+import PlanPage from "./pages/PlanPage";
+import TeamPage from "./pages/TeamPage";
 
 const App = () => {
   // Create a new QueryClient instance inside the component
@@ -109,6 +114,12 @@ const App = () => {
               <Route path="/services/ai-consulting/strategy" element={<Strategy />} />
               <Route path="/services/ai-consulting/assessment" element={<Assessment />} />
               <Route path="/services/ai-consulting/implementation" element={<Implementation />} />
+              
+              <Route path="/service" element={<ServicePage />} />
+              <Route path="/product" element={<ProductPage />} />
+              <Route path="/work" element={<WorkPage />} />
+              <Route path="/plan" element={<PlanPage />} />
+              <Route path="/team" element={<TeamPage />} />
               
               <Route path="*" element={<NotFound />} />
             </Routes>

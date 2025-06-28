@@ -195,7 +195,7 @@ export function ServicesDropdown() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="text-base font-normal text-adrig-black hover:text-adrig-blue bg-transparent data-[state=open]:text-adrig-blue">
+          <NavigationMenuTrigger className="text-base font-normal text-black hover:text-adrig-blue bg-transparent data-[state=open]:text-adrig-blue">
             Services
           </NavigationMenuTrigger>
           <NavigationMenuContent className="bg-white w-[900px] p-0">

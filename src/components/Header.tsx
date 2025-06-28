@@ -84,15 +84,13 @@ const Header = () => {
   if (loading) {
     return (
       <header
-        className={`fixed w-full z-50 transition-all duration-300 ${
-          isScrolled ? "bg-white shadow-md py-2" : "bg-transparent py-4"
-        }`}
+        className="fixed w-full z-50 transition-all duration-300 bg-white shadow-md py-2"
       >
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center">
             <Link to="/" className="flex items-center">
-              <span className="font-bold text-2xl text-adrig-blue">ADRIG</span>
-              <span className="font-bold text-xl text-black ml-1">AI</span>
+              <span className="font-bold text-2xl text-white">ADRIG</span>
+              <span className="font-bold text-xl text-white ml-1">AI</span>
             </Link>
             <div className="h-8 w-8 rounded-full bg-gray-200 animate-pulse"></div>
           </div>
@@ -104,219 +102,204 @@ const Header = () => {
   return (
     <>
       <header
-        className={`fixed w-full z-50 transition-all duration-300 ${
-          isScrolled ? "bg-white shadow-md py-2" : "bg-transparent py-4"
-        }`}
+        className={`fixed w-full z-50 transition-all duration-300 py-2 border-b border-white border-opacity-30 ${isScrolled ? 'bg-white shadow-sm' : 'bg-[#135bfb]'}`}
       >
         <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center">
-            <Link to="/" className="flex items-center">
-              <img src={Adrig_Logo} alt="ADRIG Logo" className="h-14 mr-0.5" />
-              <div className="flex flex-col leading-tight -ml-1">
-                <div className="flex items-end">
-                  <span className="font-bold text-sm text-black">ADRIG</span>
-                  <span className="font-bold text-sm text-black ml-1">AI</span>
+          <div className="flex items-center w-full">
+            {/* Logo on left */}
+            <div className="flex items-center flex-1 min-w-0">
+              <Link to="/" className="flex items-center flex-shrink-0">
+                <img
+                  src={isScrolled ? Adrig_Logo : "/uploads/Adrig - white logo - 2.PNG"}
+                  alt="ADRIG Logo"
+                  className={`w-auto mr-2 ${isScrolled ? 'h-12' : 'h-7'}`}
+                  width={56}
+                  height={56}
+                  loading="eager"
+                  style={{ minWidth: 40 }}
+                />
+                <div className="flex flex-col leading-tight">
+                  <div className="flex items-end">
+                    <span className={`font-bold text-sm ${isScrolled ? 'text-[#135bfb]' : 'text-white'}`}>ADRIG</span>
+                    <span className={`font-bold text-sm ml-1 ${isScrolled ? 'text-[#135bfb]' : 'text-white'}`}>AI</span>
+                  </div>
+                  <span className={`text-[8px] tracking-[0.25em] font-medium uppercase ${isScrolled ? 'text-[#135bfb]' : 'text-white'}`}>Technologies</span>
                 </div>
-                <span className="text-[8px] tracking-[0.25em] font-medium text-black uppercase">
-                  Technologies
-                </span>
-              </div>
-            </Link>
+              </Link>
+            </div>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <ServicesDropdown />
-
-              {/* // <Link
-//                 to="/about"
-//                 className={`text-adrig-black hover:text-adrig-blue transition-colors ${
-//                   location.pathname === "/about"
-//                     ? "font-semibold text-adrig-blue"
-//                     : ""
-//                 }`}
-//               >
-//                 About
-//               </Link> */}
-
+            {/* Centered Navigation */}
+            <nav className="hidden md:flex items-center justify-center space-x-8 flex-1">
               <Link
-                to="/blog"
-                className={`text-adrig-black hover:text-adrig-blue transition-colors ${
-                  location.pathname === "/blog" ||
-                  location.pathname.startsWith("/blog/")
-                    ? "font-semibold text-adrig-blue"
-                    : ""
+                to="/service"
+                className={`transition-colors ${
+                  isScrolled ? 'text-[#135bfb] hover:text-blue-700' : 'text-white hover:text-white/80'} ${
+                  location.pathname === "/service" ? (isScrolled ? 'font-semibold underline underline-offset-4 text-[#135bfb]' : 'font-semibold underline underline-offset-4 text-white') : ''
                 }`}
               >
-                Blog
+                Service
               </Link>
-
+              <Link
+                to="/product"
+                className={`transition-colors ${
+                  isScrolled ? 'text-[#135bfb] hover:text-blue-700' : 'text-white hover:text-white/80'} ${
+                  location.pathname === "/product" ? (isScrolled ? 'font-semibold underline underline-offset-4 text-[#135bfb]' : 'font-semibold underline underline-offset-4 text-white') : ''
+                }`}
+              >
+                Product
+              </Link>
+              <Link
+                to="/work"
+                className={`transition-colors ${
+                  isScrolled ? 'text-[#135bfb] hover:text-blue-700' : 'text-white hover:text-white/80'} ${
+                  location.pathname === "/work" ? (isScrolled ? 'font-semibold underline underline-offset-4 text-[#135bfb]' : 'font-semibold underline underline-offset-4 text-white') : ''
+                }`}
+              >
+                Work
+              </Link>
+              <Link
+                to="/plan"
+                className={`transition-colors ${
+                  isScrolled ? 'text-[#135bfb] hover:text-blue-700' : 'text-white hover:text-white/80'} ${
+                  location.pathname === "/plan" ? (isScrolled ? 'font-semibold underline underline-offset-4 text-[#135bfb]' : 'font-semibold underline underline-offset-4 text-white') : ''
+                }`}
+              >
+                Plan
+              </Link>
+              <Link
+                to="/team"
+                className={`transition-colors ${
+                  isScrolled ? 'text-[#135bfb] hover:text-blue-700' : 'text-white hover:text-white/80'} ${
+                  location.pathname === "/team" ? (isScrolled ? 'font-semibold underline underline-offset-4 text-[#135bfb]' : 'font-semibold underline underline-offset-4 text-white') : ''
+                }`}
+              >
+                Team
+              </Link>
               <Link
                 to="/contact"
-                className={`text-adrig-black hover:text-adrig-blue transition-colors ${
-                  location.pathname === "/contact"
-                    ? "font-semibold text-adrig-blue"
-                    : ""
+                className={`transition-colors ${
+                  isScrolled ? 'text-[#135bfb] hover:text-blue-700' : 'text-white hover:text-white/80'} ${
+                  location.pathname === "/contact" ? (isScrolled ? 'font-semibold underline underline-offset-4 text-[#135bfb]' : 'font-semibold underline underline-offset-4 text-white') : ''
                 }`}
               >
                 Contact
               </Link>
-
-              <div className="flex items-center space-x-3">
-                {user ? (
-                  <div className="flex items-center space-x-2">
-                    <span className="flex items-center text-sm">
-                      <User size={16} className="mr-1" />
-                      {user.user_metadata?.name || user.email?.split("@")[0]}
-                    </span>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
-                      onClick={handleSignOut}
-                    >
-                      <LogOut size={16} />
-                    </Button>
-                  </div>
-                ) : (
-                  <>
-                    <Button
-                      variant="outline"
-                      className="border-adrig-blue text-adrig-blue hover:bg-adrig-blue hover:text-white"
-                      onClick={openLoginDialog}
-                    >
-                      <LogIn size={18} className="mr-1" /> Login
-                    </Button>
-                    <Button
-                      variant="default"
-                      className="bg-adrig-blue hover:bg-blue-700"
-                      onClick={openSignupDialog}
-                    >
-                      <UserPlus size={18} className="mr-1" /> Sign Up
-                    </Button>
-                  </>
-                )}
-              </div>
             </nav>
 
-            {/* Mobile Menu Button */}
-            <button
-              className="md:hidden text-adrig-black"
-              onClick={toggleMenu}
-              aria-label="Toggle menu"
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-
-          {/* Mobile Navigation */}
-          {isMobile && (
-            <div
-              className={`
-              md:hidden bg-white absolute left-0 right-0 px-4 py-5 shadow-lg
-              transition-all duration-300 ease-in-out
-              ${
-                isMenuOpen
-                  ? "opacity-100 top-full visible"
-                  : "opacity-0 top-[calc(100%-10px)] invisible"
-              }
-            `}
-            >
-              <nav className="flex flex-col space-y-4">
-                <div className="border-b border-gray-200 py-2">
-                  <span className="font-medium mb-2 block">Services</span>
-                  <div className="pl-4 flex flex-col space-y-3 mt-2">
-                    <Link
-                      to="/services/ai-automation"
-                      className="text-adrig-black hover:text-adrig-blue"
-                    >
-                      AI Automation
-                    </Link>
-                  </div>
+            {/* Auth buttons on right */}
+            <div className="flex items-center justify-end flex-1 space-x-3">
+              {user ? (
+                <div className="flex items-center space-x-2">
+                  <span className="flex items-center text-sm">
+                    <User size={16} className="mr-1" />
+                    {user.user_metadata?.name || user.email?.split("@")[0]}
+                  </span>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
+                    onClick={handleSignOut}
+                  >
+                    <LogOut size={16} />
+                  </Button>
                 </div>
-
-                <Link
-                  to="/about"
-                  className={`text-adrig-black hover:text-adrig-blue py-2 ${
-                    location.pathname === "/about"
-                      ? "font-semibold text-adrig-blue"
-                      : ""
-                  }`}
-                >
-                  About
-                </Link>
-
-                <Link
-                  to="/blog"
-                  className={`text-adrig-black hover:text-adrig-blue py-2 ${
-                    location.pathname === "/blog"
-                      ? "font-semibold text-adrig-blue"
-                      : ""
-                  }`}
-                >
-                  Blog
-                </Link>
-
-                <Link
-                  to="/contact"
-                  className={`text-adrig-black hover:text-adrig-blue py-2 ${
-                    location.pathname === "/contact"
-                      ? "font-semibold text-adrig-blue"
-                      : ""
-                  }`}
-                >
-                  Contact
-                </Link>
-
-                <div className="pt-2 flex flex-col space-y-3">
-                  {user ? (
+              ) : (
+                <>
+                  {isScrolled ? (
                     <>
-                      <div className="flex items-center justify-center space-x-2 py-2">
-                        <User size={16} className="text-adrig-blue" />
-                        <span className="text-sm">
-                          {user.user_metadata?.name ||
-                            user.email?.split("@")[0]}
-                        </span>
-                      </div>
                       <Button
                         variant="outline"
-                        className="w-full border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
-                        onClick={handleSignOut}
+                        className="bg-white border border-[#135bfb] text-[#135bfb] hover:bg-blue-100 hover:text-[#135bfb]"
+                        onClick={openLoginDialog}
                       >
-                        <LogOut size={18} className="mr-1" /> Sign Out
+                        Login
+                      </Button>
+                      <Button
+                        variant="default"
+                        className="bg-[#135bfb] text-white border border-[#135bfb] hover:bg-blue-700 hover:text-white font-semibold"
+                        onClick={openSignupDialog}
+                      >
+                        Sign Up
                       </Button>
                     </>
                   ) : (
                     <>
                       <Button
                         variant="outline"
-                        className="w-full border-adrig-blue text-adrig-blue hover:bg-adrig-blue hover:text-white"
-                        onClick={() => {
-                          setIsMenuOpen(false);
-                          openLoginDialog();
-                        }}
+                        className="bg-[#135bfb] border border-white text-white hover:bg-blue-700 hover:text-white"
+                        onClick={openLoginDialog}
                       >
-                        <LogIn size={18} className="mr-1" /> Login
+                        Login
                       </Button>
                       <Button
                         variant="default"
-                        className="w-full bg-adrig-blue hover:bg-blue-700"
-                        onClick={() => {
-                          setIsMenuOpen(false);
-                          openSignupDialog();
-                        }}
+                        className="bg-white text-[#135bfb] hover:bg-blue-100 hover:text-[#135bfb] border border-white font-semibold"
+                        onClick={openSignupDialog}
                       >
-                        <UserPlus size={18} className="mr-1" /> Sign Up
+                        Sign Up
                       </Button>
                     </>
                   )}
-                </div>
-              </nav>
+                </>
+              )}
             </div>
-          )}
+
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden text-white"
+              onClick={toggleMenu}
+            >
+              <Menu size={24} />
+            </button>
+          </div>
         </div>
       </header>
 
-      {/* Login and Signup Dialogs */}
+      {/* Mobile Menu */}
+      <div
+        className={`fixed top-0 left-0 w-full h-full bg-white z-50 transform ${
+          isMenuOpen ? "translate-x-0" : "-translate-x-full"
+        } transition-transform duration-300 ease-in-out md:hidden`}
+      >
+        <div className="flex justify-between items-center p-4 border-b">
+          <Link to="/" className="flex items-center">
+            <img src={Adrig_Logo} alt="ADRIG Logo" className="h-14 w-auto" />
+            <div className="flex flex-col leading-tight -ml-1">
+              <div className="flex items-end">
+                <span className="font-bold text-sm text-[#135bfb]">ADRIG</span>
+                <span className="font-bold text-sm ml-1 text-[#135bfb]">AI</span>
+              </div>
+              <span className="text-[8px] tracking-[0.25em] font-medium uppercase text-[#135bfb]">
+                Technologies
+              </span>
+            </div>
+          </Link>
+          <button onClick={toggleMenu}>
+            <X size={24} className="text-gray-600" />
+          </button>
+        </div>
+        <nav className="flex flex-col items-center justify-center h-full -mt-16 space-y-6">
+          <Link to="/service" className="text-xl text-gray-700 hover:text-[#135bfb]">
+            Service
+          </Link>
+          <Link to="/product" className="text-xl text-gray-700 hover:text-[#135bfb]">
+            Product
+          </Link>
+          <Link to="/work" className="text-xl text-gray-700 hover:text-[#135bfb]">
+            Work
+          </Link>
+          <Link to="/plan" className="text-xl text-gray-700 hover:text-[#135bfb]">
+            Plan
+          </Link>
+          <Link to="/team" className="text-xl text-gray-700 hover:text-[#135bfb]">
+            Team
+          </Link>
+          <Link to="/contact" className="text-xl text-gray-700 hover:text-[#135bfb]">
+            Contact
+          </Link>
+        </nav>
+      </div>
+
       <LoginDialog
         open={loginDialogOpen}
         onOpenChange={setLoginDialogOpen}
@@ -325,7 +308,6 @@ const Header = () => {
           setSignupDialogOpen(true);
         }}
       />
-
       <SignupDialog
         open={signupDialogOpen}
         onOpenChange={setSignupDialogOpen}

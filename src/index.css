@@ -1,5 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -92,19 +91,19 @@
   }
 
   body {
-    @apply bg-background text-foreground font-poppins;
+    @apply bg-background text-foreground font-sans;
   }
 
   h1, h2 {
-    @apply text-4xl font-bold text-adrig-black;
+    @apply text-4xl font-bold text-black;
   }
 
   h3, h4 {
-    @apply text-2xl font-semibold text-adrig-black;
+    @apply text-2xl font-semibold text-black;
   }
 
   p {
-    @apply text-base text-adrig-black;
+    @apply text-base text-black;
   }
 }
 
@@ -118,7 +117,7 @@
   }
 
   .section-title {
-    @apply text-3xl md:text-4xl font-bold text-center text-adrig-black mb-12;
+    @apply text-3xl md:text-4xl font-bold text-center text-black mb-12;
   }
 
   .service-card {
@@ -140,4 +139,18 @@
   .testimonial-card {
     @apply bg-white p-6 rounded-xl shadow-md mx-4;
   }
+}
+
+@keyframes draw-line {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.animate-draw-line {
+  transform-origin: left;
+  animation: draw-line 2s ease-out forwards;
 }

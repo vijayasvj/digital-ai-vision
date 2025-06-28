@@ -1,5 +1,5 @@
-
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
 	darkMode: ["class"],
@@ -26,12 +26,12 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					DEFAULT: '#135bfb',
+					foreground: '#ffffff',
 				},
 				secondary: {
-					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))'
+					DEFAULT: '#2685ff',
+					foreground: '#ffffff',
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
@@ -54,11 +54,9 @@ export default {
 					foreground: 'hsl(var(--card-foreground))'
 				},
 				adrig: {
-					blue: '#1E40AF', // Updated to the requested blue color
-					lightBlue: '#bfdbfe',
+					blue: '#135bfb',
+					lightBlue: '#2685ff',
 					white: '#ffffff',
-					black: '#000000',
-					gray: '#f3f4f6',
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
@@ -116,9 +114,9 @@ export default {
 				"glow": "glow 2s ease-in-out infinite",
 			},
 			fontFamily: {
-				poppins: ['Poppins', 'sans-serif'],
+				sans: ['Manrope', 'sans-serif'],
 			},
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [tailwindcssAnimate],
 } satisfies Config;
