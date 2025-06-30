@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, LogIn, UserPlus, LogOut, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ServicesDropdown from "./ServicesDropdown";
+import ProductsDropdown from "./ProductsDropdown";
 import { useIsMobile } from "@/hooks/use-mobile";
 import LoginDialog from "./LoginDialog";
 import SignupDialog from "./SignupDialog";
@@ -130,57 +131,39 @@ const Header = () => {
 
             {/* Centered Navigation */}
             <nav className="hidden md:flex items-center justify-center space-x-8 flex-1">
-              <Link
-                to="/service"
-                className={`transition-colors ${
-                  isScrolled ? 'text-[#135bfb] hover:text-blue-700' : 'text-white hover:text-white/80'} ${
-                  location.pathname === "/service" ? (isScrolled ? 'font-semibold underline underline-offset-4 text-[#135bfb]' : 'font-semibold underline underline-offset-4 text-white') : ''
-                }`}
-              >
-                Service
-              </Link>
-              <Link
-                to="/product"
-                className={`transition-colors ${
-                  isScrolled ? 'text-[#135bfb] hover:text-blue-700' : 'text-white hover:text-white/80'} ${
-                  location.pathname === "/product" ? (isScrolled ? 'font-semibold underline underline-offset-4 text-[#135bfb]' : 'font-semibold underline underline-offset-4 text-white') : ''
-                }`}
-              >
-                Product
-              </Link>
+              {/* Services Dropdown */}
+              <div className={`${isScrolled ? 'text-[#135bfb]' : 'text-white'}`}>
+                <ServicesDropdown />
+              </div>
+              {/* Products Dropdown */}
+              <div className={`${isScrolled ? 'text-[#135bfb]' : 'text-white'}`}>
+                <ProductsDropdown />
+              </div>
               <Link
                 to="/work"
-                className={`transition-colors ${
-                  isScrolled ? 'text-[#135bfb] hover:text-blue-700' : 'text-white hover:text-white/80'} ${
-                  location.pathname === "/work" ? (isScrolled ? 'font-semibold underline underline-offset-4 text-[#135bfb]' : 'font-semibold underline underline-offset-4 text-white') : ''
-                }`}
+                className={`transition-colors ${isScrolled ? 'text-[#135bfb] hover:text-blue-700' : 'text-white hover:text-white/80'} ${location.pathname === "/work" ? (isScrolled ? 'font-semibold underline underline-offset-4 text-[#135bfb]' : 'font-semibold underline underline-offset-4 text-white') : ''
+                  }`}
               >
                 Work
               </Link>
               <Link
                 to="/plan"
-                className={`transition-colors ${
-                  isScrolled ? 'text-[#135bfb] hover:text-blue-700' : 'text-white hover:text-white/80'} ${
-                  location.pathname === "/plan" ? (isScrolled ? 'font-semibold underline underline-offset-4 text-[#135bfb]' : 'font-semibold underline underline-offset-4 text-white') : ''
-                }`}
+                className={`transition-colors ${isScrolled ? 'text-[#135bfb] hover:text-blue-700' : 'text-white hover:text-white/80'} ${location.pathname === "/plan" ? (isScrolled ? 'font-semibold underline underline-offset-4 text-[#135bfb]' : 'font-semibold underline underline-offset-4 text-white') : ''
+                  }`}
               >
                 Plan
               </Link>
               <Link
                 to="/team"
-                className={`transition-colors ${
-                  isScrolled ? 'text-[#135bfb] hover:text-blue-700' : 'text-white hover:text-white/80'} ${
-                  location.pathname === "/team" ? (isScrolled ? 'font-semibold underline underline-offset-4 text-[#135bfb]' : 'font-semibold underline underline-offset-4 text-white') : ''
-                }`}
+                className={`transition-colors ${isScrolled ? 'text-[#135bfb] hover:text-blue-700' : 'text-white hover:text-white/80'} ${location.pathname === "/team" ? (isScrolled ? 'font-semibold underline underline-offset-4 text-[#135bfb]' : 'font-semibold underline underline-offset-4 text-white') : ''
+                  }`}
               >
                 Team
               </Link>
               <Link
                 to="/contact"
-                className={`transition-colors ${
-                  isScrolled ? 'text-[#135bfb] hover:text-blue-700' : 'text-white hover:text-white/80'} ${
-                  location.pathname === "/contact" ? (isScrolled ? 'font-semibold underline underline-offset-4 text-[#135bfb]' : 'font-semibold underline underline-offset-4 text-white') : ''
-                }`}
+                className={`transition-colors ${isScrolled ? 'text-[#135bfb] hover:text-blue-700' : 'text-white hover:text-white/80'} ${location.pathname === "/contact" ? (isScrolled ? 'font-semibold underline underline-offset-4 text-[#135bfb]' : 'font-semibold underline underline-offset-4 text-white') : ''
+                  }`}
               >
                 Contact
               </Link>
@@ -190,7 +173,7 @@ const Header = () => {
             <div className="flex items-center justify-end flex-1 space-x-3">
               {user ? (
                 <div className="flex items-center space-x-2">
-                  <span className="flex items-center text-sm">
+                  <span className={`flex items-center text-sm ${isScrolled ? 'text-[#135bfb]' : 'text-white'}`}>
                     <User size={16} className="mr-1" />
                     {user.user_metadata?.name || user.email?.split("@")[0]}
                   </span>
@@ -246,7 +229,7 @@ const Header = () => {
 
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden text-white"
+              className={`md:hidden ${isScrolled ? 'text-[#135bfb]' : 'text-white'}`}
               onClick={toggleMenu}
             >
               <Menu size={24} />
@@ -257,9 +240,8 @@ const Header = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed top-0 left-0 w-full h-full bg-white z-50 transform ${
-          isMenuOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 ease-in-out md:hidden`}
+        className={`fixed top-0 left-0 w-full h-full bg-white z-50 transform ${isMenuOpen ? "translate-x-0" : "-translate-x-full"
+          } transition-transform duration-300 ease-in-out md:hidden`}
       >
         <div className="flex justify-between items-center p-4 border-b">
           <Link to="/" className="flex items-center">

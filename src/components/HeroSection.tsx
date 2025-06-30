@@ -1,9 +1,13 @@
 import { Button } from '@/components/ui/button';
+import { Boxes } from '@/components/ui/background-boxes';
 
 const HeroSection = () => {
   return (
     <section className="relative overflow-hidden py-60" style={{ backgroundColor: '#135bfb' }}>
-      <div className="container mx-auto px-4 z-20">
+      {/* Background Boxes Component */}
+      <Boxes className="opacity-80" />
+
+      <div className="container mx-auto px-4 z-20 relative">
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-6xl lg:text-7xl mb-4 text-white">
             <span className="font-normal">Driving Growth with </span><span className="font-extrabold text-white">AI.</span>

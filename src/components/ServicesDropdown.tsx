@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   Brain,
@@ -21,6 +21,14 @@ import {
   Cpu,
   GitBranch,
   Server,
+  Smartphone,
+  Monitor,
+  Laptop,
+  Cloud,
+  Rocket,
+  UserPlus,
+  Globe,
+  Shield,
 } from "lucide-react";
 import {
   NavigationMenu,
@@ -54,6 +62,80 @@ export const services = [
         href: "/services/ai-automation/ai-integration",
         icon: GitBranch,
         description: "Seamless AI integration with existing systems",
+      },
+    ],
+  },
+  {
+    title: "Software Development",
+    icon: Code,
+    href: "/services/software-development",
+    subcategories: [
+      {
+        name: "Mobile App Development",
+        href: "/services/software-development/mobile-apps",
+        icon: Smartphone,
+        description: "Native and cross-platform mobile applications",
+      },
+      {
+        name: "Web App Development",
+        href: "/services/software-development/web-apps",
+        icon: Monitor,
+        description: "Modern web applications and progressive web apps",
+      },
+      {
+        name: "Desktop Application Development",
+        href: "/services/software-development/desktop-apps",
+        icon: Laptop,
+        description: "Cross-platform desktop applications",
+      },
+      {
+        name: "SAAS Development",
+        href: "/services/software-development/saas",
+        icon: Cloud,
+        description: "Scalable software-as-a-service platforms",
+      },
+      {
+        name: "MVP Building in 20 Days",
+        href: "/services/software-development/mvp",
+        icon: Rocket,
+        description: "Rapid prototype development for market validation",
+      },
+    ],
+  },
+  {
+    title: "Talent Acquisition / Staffing",
+    icon: UserPlus,
+    href: "/services/talent-acquisition",
+    subcategories: [
+      {
+        name: "React/Next.js Developers",
+        href: "/services/talent-acquisition/react-developers",
+        icon: Globe,
+        description: "Expert React and Next.js developers for modern web apps",
+      },
+      {
+        name: "Python/Django Developers",
+        href: "/services/talent-acquisition/python-developers",
+        icon: Shield,
+        description: "Skilled Python developers for backend and AI solutions",
+      },
+      {
+        name: "Node.js/Express Developers",
+        href: "/services/talent-acquisition/nodejs-developers",
+        icon: Zap,
+        description: "Experienced Node.js developers for scalable APIs",
+      },
+      {
+        name: "Mobile (React Native/Flutter)",
+        href: "/services/talent-acquisition/mobile-developers",
+        icon: Smartphone,
+        description: "Cross-platform mobile developers for iOS and Android",
+      },
+      {
+        name: "DevOps & Cloud Engineers",
+        href: "/services/talent-acquisition/devops-engineers",
+        icon: Cloud,
+        description: "DevOps specialists for AWS, Azure, and GCP",
       },
     ],
   },
@@ -134,7 +216,7 @@ export const services = [
   },
   {
     title: "LLM Development",
-    icon: Code,
+    icon: BookOpen,
     href: "/services/llm-development",
     subcategories: [
       {
@@ -190,27 +272,39 @@ export function ServicesDropdown() {
   const [activeCategory, setActiveCategory] = useState<string | null>(
     services[0].title
   );
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Check scroll state
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className="text-base font-normal text-black hover:text-adrig-blue bg-transparent data-[state=open]:text-adrig-blue">
+          <NavigationMenuTrigger
+            className={`text-base font-normal bg-transparent transition-colors ${isScrolled
+              ? 'text-[#135bfb] hover:text-blue-700 data-[state=open]:text-blue-700'
+              : 'text-white hover:text-white/80 data-[state=open]:text-white'
+              }`}
+          >
             Services
           </NavigationMenuTrigger>
-          <NavigationMenuContent className="bg-white w-[900px] p-0">
+          <NavigationMenuContent className="bg-white w-[900px] p-0 shadow-lg border border-gray-200 rounded-lg">
             <div className="flex">
               {/* Left sidebar with categories */}
-              <div className="w-[250px] bg-gray-50 py-3">
+              <div className="w-[250px] bg-gray-50 py-3 rounded-l-lg">
                 {services.map((service) => (
                   <div key={service.href}>
                     <button
                       onMouseEnter={() => setActiveCategory(service.title)}
-                      className={`w-full text-left flex items-center gap-2 px-5 py-3 transition-colors hover:bg-gray-100 ${
-                        activeCategory === service.title
-                          ? "text-adrig-blue bg-gray-100"
-                          : "text-gray-800"
-                      }`}
+                      className={`w-full text-left flex items-center gap-2 px-5 py-3 transition-colors hover:bg-gray-100 ${activeCategory === service.title
+                        ? "text-[#135bfb] bg-gray-100 font-medium"
+                        : "text-gray-800 hover:text-[#135bfb]"
+                        }`}
                     >
                       <service.icon className="h-5 w-5 shrink-0" />
                       <span className="font-medium">{service.title}</span>
@@ -224,12 +318,11 @@ export function ServicesDropdown() {
                 {services.map((service) => (
                   <div
                     key={service.title}
-                    className={`${
-                      activeCategory === service.title ? "block" : "hidden"
-                    }`}
+                    className={`${activeCategory === service.title ? "block" : "hidden"
+                      }`}
                   >
                     <div className="mb-4">
-                      <h3 className="text-lg font-semibold text-adrig-blue mb-1">
+                      <h3 className="text-lg font-semibold text-[#135bfb] mb-1">
                         {service.title}
                       </h3>
                       <p className="text-sm text-gray-600">
@@ -237,30 +330,55 @@ export function ServicesDropdown() {
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-6">
-                      {service.subcategories.map((subcategory) => (
-                        <Link
-                          key={subcategory.href}
-                          to={subcategory.href}
-                          className="group block"
-                        >
-                          <div className="bg-gray-900 rounded-lg p-5 mb-3 flex items-center justify-center h-28 transition-transform group-hover:scale-[1.02]">
-                            <subcategory.icon className="h-10 w-10 text-white" />
-                          </div>
-                          <h4 className="font-medium text-gray-900 group-hover:text-adrig-blue">
-                            {subcategory.name}
-                          </h4>
-                          <p className="text-sm text-gray-600 mt-1">
-                            {subcategory.description}
-                          </p>
-                        </Link>
-                      ))}
+                    {/* Two-row layout with horizontal scroll */}
+                    <div className="space-y-4">
+                      {/* First row */}
+                      <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                        {service.subcategories.slice(0, Math.ceil(service.subcategories.length / 2)).map((subcategory) => (
+                          <Link
+                            key={subcategory.href}
+                            to={subcategory.href}
+                            className="group block flex-shrink-0 w-48"
+                          >
+                            <div className="bg-gradient-to-br from-[#135bfb] to-[#2786ff] rounded-lg p-4 mb-3 flex items-center justify-center h-20 transition-transform group-hover:scale-[1.02] shadow-md">
+                              <subcategory.icon className="h-8 w-8 text-white" />
+                            </div>
+                            <h4 className="font-medium text-gray-900 group-hover:text-[#135bfb] transition-colors text-sm">
+                              {subcategory.name}
+                            </h4>
+                            <p className="text-xs text-gray-600 mt-1">
+                              {subcategory.description}
+                            </p>
+                          </Link>
+                        ))}
+                      </div>
+
+                      {/* Second row */}
+                      <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                        {service.subcategories.slice(Math.ceil(service.subcategories.length / 2)).map((subcategory) => (
+                          <Link
+                            key={subcategory.href}
+                            to={subcategory.href}
+                            className="group block flex-shrink-0 w-48"
+                          >
+                            <div className="bg-gradient-to-br from-[#135bfb] to-[#2786ff] rounded-lg p-4 mb-3 flex items-center justify-center h-20 transition-transform group-hover:scale-[1.02] shadow-md">
+                              <subcategory.icon className="h-8 w-8 text-white" />
+                            </div>
+                            <h4 className="font-medium text-gray-900 group-hover:text-[#135bfb] transition-colors text-sm">
+                              {subcategory.name}
+                            </h4>
+                            <p className="text-xs text-gray-600 mt-1">
+                              {subcategory.description}
+                            </p>
+                          </Link>
+                        ))}
+                      </div>
                     </div>
 
                     <div className="mt-4 flex justify-end">
                       <Link
                         to={service.href}
-                        className="text-adrig-blue hover:underline text-sm flex items-center"
+                        className="text-[#135bfb] hover:text-blue-700 text-sm flex items-center transition-colors"
                       >
                         View all {service.title} services
                       </Link>
