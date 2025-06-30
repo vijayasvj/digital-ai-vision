@@ -4,15 +4,15 @@ import { useState, useEffect, useRef } from "react";
 
 type LandingContent = {
   title: string;
-  subtitle: string; 
+  subtitle: string;
   videotitle: string;
-  time:string;
-  firstcardtitle:string;
-  firstcardsubtitle:string;
-  secondcardtitle:string;
-  secondcardsubtitle:string;
-  thirdcardtitle:string;
-  thirdcardsubtitle:string;
+  time: string;
+  firstcardtitle: string;
+  firstcardsubtitle: string;
+  secondcardtitle: string;
+  secondcardsubtitle: string;
+  thirdcardtitle: string;
+  thirdcardsubtitle: string;
 };
 
 const VideoSection = () => {
@@ -71,9 +71,9 @@ const VideoSection = () => {
         <div ref={videoRef} className="relative w-full max-w-3xl mx-auto rounded-xl overflow-hidden shadow-2xl">
           {!isPlaying ? (
             <div className="relative">
-              <img 
-                src="https://img.youtube.com/vi/Qk2CTUIH1as/maxresdefault.jpg" 
-                alt="Company Introduction Video Thumbnail" 
+              <img
+                src="https://img.youtube.com/vi/Qk2CTUIH1as/maxresdefault.jpg"
+                alt="Company Introduction Video Thumbnail"
                 className="w-full h-auto object-cover aspect-video"
               />
               <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
@@ -82,13 +82,13 @@ const VideoSection = () => {
             </div>
           ) : (
             <div className="aspect-video">
-              <iframe 
-                width="100%" 
-                height="100%" 
-                src="https://www.youtube.com/embed/Qk2CTUIH1as?autoplay=1&mute=1" 
-                title="Digital AI Vision Introduction" 
-                frameBorder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/Qk2CTUIH1as?autoplay=1&mute=1"
+                title="ADRIG Introduction"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
                 className="aspect-video"
               ></iframe>

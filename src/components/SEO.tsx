@@ -10,7 +10,7 @@ interface SEOProps {
 }
 
 const SEO = ({
-  title = "ADRIG - Digital AI Vision",
+  title = "ADRIG - Driving growth with AI",
   description = "Empowering businesses with cutting-edge AI solutions, automation, and scalable SaaS products. Transform your operations with our intelligent technologies.",
   canonicalUrl = "https://digital-ai-vision.com",
   keywords = "AI solutions, business automation, digital transformation, chatbots, machine learning, workflow automation",
