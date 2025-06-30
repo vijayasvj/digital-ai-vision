@@ -1,4 +1,3 @@
-
 import { Helmet } from "react-helmet-async";
 
 interface SEOProps {
@@ -11,7 +10,7 @@ interface SEOProps {
 }
 
 const SEO = ({
-  title = "Digital AI Vision - AI Solutions for Business Growth",
+  title = "ADRIG - Digital AI Vision",
   description = "Empowering businesses with cutting-edge AI solutions, automation, and scalable SaaS products. Transform your operations with our intelligent technologies.",
   canonicalUrl = "https://digital-ai-vision.com",
   keywords = "AI solutions, business automation, digital transformation, chatbots, machine learning, workflow automation",
@@ -24,17 +23,17 @@ const SEO = ({
       <title>{title}</title>
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords} />
-      
+
       {/* Canonical URL */}
       <link rel="canonical" href={canonicalUrl} />
-      
+
       {/* Open Graph tags */}
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content={ogType} />
       <meta property="og:url" content={canonicalUrl} />
       <meta property="og:image" content={ogImage} />
-      
+
       {/* Twitter tags */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
