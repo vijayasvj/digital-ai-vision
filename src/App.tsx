@@ -3,9 +3,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { HelmetProvider } from "react-helmet-async";
-import LoadingScreen from "@/components/LoadingScreen";
 
 import Index from "./pages/Index";
 import Services from "./pages/Services";
@@ -83,29 +82,6 @@ import TeamPage from "./pages/TeamPage";
 const App = () => {
   // Create a new QueryClient instance inside the component
   const [queryClient] = useState(() => new QueryClient());
-  const [isLoading, setIsLoading] = useState(true);
-
-  const handleLoadingComplete = () => {
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    // Check if all critical resources are loaded
-    const checkResourcesLoaded = () => {
-      // Simulate checking for critical resources
-      const timer = setTimeout(() => {
-        setIsLoading(false);
-      }, 1000); // Minimum 1 second loading time
-
-      return () => clearTimeout(timer);
-    };
-
-    return checkResourcesLoaded();
-  }, []);
-
-  if (isLoading) {
-    return <LoadingScreen onComplete={handleLoadingComplete} />;
-  }
 
   return (
     <QueryClientProvider client={queryClient}>
