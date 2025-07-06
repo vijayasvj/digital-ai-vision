@@ -94,11 +94,13 @@
     @apply bg-background text-foreground font-sans;
   }
 
-  h1, h2 {
+  h1,
+  h2 {
     @apply text-4xl font-bold text-black;
   }
 
-  h3, h4 {
+  h3,
+  h4 {
     @apply text-2xl font-semibold text-black;
   }
 
@@ -111,7 +113,7 @@
   .hero-gradient {
     background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(255, 255, 255, 0.7) 100%);
   }
-  
+
   .cta-button {
     @apply bg-adrig-blue text-adrig-white px-6 py-3 rounded-lg font-semibold transition-transform duration-300 hover:scale-105 shadow-md;
   }
@@ -145,6 +147,7 @@
   from {
     transform: scaleX(0);
   }
+
   to {
     transform: scaleX(1);
   }
@@ -153,4 +156,119 @@
 .animate-draw-line {
   transform-origin: left;
   animation: draw-line 2s ease-out forwards;
+}
+
+/* Loading Screen Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes expand {
+  from {
+    letter-spacing: normal;
+  }
+
+  to {
+    letter-spacing: 2rem;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInCenter {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes transform {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-fadeOut {
+  animation: fadeOut 0.8s ease-out forwards;
+}
+
+.animate-expand {
+  animation: expand 1.5s ease-out forwards;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.animate-slideInCenter {
+  animation: slideInCenter 0.8s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.8s ease-out 0.4s forwards;
+  opacity: 0;
+}
+
+.animate-transform {
+  animation: transform 2s ease-in-out forwards;
 }
