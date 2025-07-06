@@ -1,6 +1,7 @@
 import { Button } from "./ui/button";
 import { Play } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import { useData } from "@/context/DataContext";
 
 type LandingContent = {
   title: string;
@@ -16,27 +17,13 @@ type LandingContent = {
 };
 
 const VideoSection = () => {
-  const [content, setContent] = useState<LandingContent | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { videoData, isLoading } = useData();
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    fetch("/content/landingpage/VideoSection.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setContent(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Failed to load landing page content:", err);
-        setLoading(false);
-      });
-  }, []);
-
-  useEffect(() => {
     const videoElement = videoRef.current;
-    if (!videoElement || loading) return;
+    if (!videoElement || isLoading) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -55,45 +42,68 @@ const VideoSection = () => {
         observer.unobserve(videoElement);
       }
     };
-  }, [loading]);
+  }, [isLoading]);
 
-  if (loading || !content) {
+  if (isLoading || !videoData) {
     return (
       <section className="min-h-screen flex items-center justify-center">
-        <p className="text-xl text-gray-500">Loading...</p>
+        <div className="animate-pulse">
+          <div className="h-8 bg-gray-200 rounded w-64 mb-4"></div>
+          <div className="h-4 bg-gray-200 rounded w-48"></div>
+        </div>
       </section>
     );
   }
 
+  const content: LandingContent = videoData;
+
   return (
-    <section className="py-8 bg-white">
+    <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
-        <div ref={videoRef} className="relative w-full max-w-3xl mx-auto rounded-xl overflow-hidden shadow-2xl">
-          {!isPlaying ? (
-            <div className="relative">
-              <img
-                src="https://img.youtube.com/vi/Qk2CTUIH1as/maxresdefault.jpg"
-                alt="Company Introduction Video Thumbnail"
-                className="w-full h-auto object-cover aspect-video"
-              />
-              <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                {/* Video will play on scroll */}
-              </div>
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4">{content.title}</h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            {content.subtitle}
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Video Section */}
+          <div ref={videoRef} className="relative">
+            <div className="bg-gray-900 rounded-lg aspect-video flex items-center justify-center">
+              {isPlaying ? (
+                <div className="text-white text-center">
+                  <div className="text-2xl font-bold mb-2">{content.videotitle}</div>
+                  <div className="text-gray-400">{content.time}</div>
+                </div>
+              ) : (
+                <Button
+                  size="lg"
+                  className="bg-white text-gray-900 hover:bg-gray-100"
+                  onClick={() => setIsPlaying(true)}
+                >
+                  <Play className="mr-2 h-6 w-6" />
+                  Watch Video
+                </Button>
+              )}
             </div>
-          ) : (
-            <div className="aspect-video">
-              <iframe
-                width="100%"
-                height="100%"
-                src="https://www.youtube.com/embed/Qk2CTUIH1as?autoplay=1&mute=1"
-                title="ADRIG Introduction"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                className="aspect-video"
-              ></iframe>
+          </div>
+
+          {/* Content Cards */}
+          <div className="space-y-6">
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="text-xl font-semibold mb-2">{content.firstcardtitle}</h3>
+              <p className="text-gray-600">{content.firstcardsubtitle}</p>
             </div>
-          )}
+            <div className="bg-green-50 p-6 rounded-lg">
+              <h3 className="text-xl font-semibold mb-2">{content.secondcardtitle}</h3>
+              <p className="text-gray-600">{content.secondcardsubtitle}</p>
+            </div>
+            <div className="bg-purple-50 p-6 rounded-lg">
+              <h3 className="text-xl font-semibold mb-2">{content.thirdcardtitle}</h3>
+              <p className="text-gray-600">{content.thirdcardsubtitle}</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

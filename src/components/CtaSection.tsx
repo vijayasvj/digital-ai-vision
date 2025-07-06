@@ -24,31 +24,24 @@
 // export default CtaSection;
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { useState,useEffect } from 'react';
+import { useData } from '@/context/DataContext';
+
 const CtaSection = () => {
-  const [ctaData, setCtaData] = useState(null);
+  const { ctaData, isLoading } = useData();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/content/landingpage/CtaSection.json');
-        const data = await response.json();
-        setCtaData(data);
-      } catch (error) {
-        console.error("Error loading CTA data:", error);
-        // Fallback data
-        setCtaData({
-          heading: "Let's Build the Future Together!",
-          subheading: "Ready to transform your business with cutting-edge AI solutions?",
-          buttonText: "Schedule a Consultation",
-          buttonLink: "/contact"
-        });
-      }
-    };
-    fetchData();
-  }, []);
-
-  if (!ctaData) return <div className="py-20 bg-adrig-blue"></div>;
+  if (isLoading || !ctaData) {
+    return (
+      <section className="py-20 bg-adrig-blue">
+        <div className="container mx-auto px-4 text-center">
+          <div className="animate-pulse">
+            <div className="h-10 bg-white/20 rounded w-96 mx-auto mb-6"></div>
+            <div className="h-6 bg-white/20 rounded w-80 mx-auto mb-8"></div>
+            <div className="h-12 bg-white/20 rounded w-48 mx-auto"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-20 bg-adrig-blue text-white">

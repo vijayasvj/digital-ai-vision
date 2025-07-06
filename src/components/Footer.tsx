@@ -1,121 +1,149 @@
 
-import { useState, useEffect } from 'react';
+import { useData } from '@/context/DataContext';
 import { Link } from 'react-router-dom';
-import { 
-  Facebook, 
-  Twitter, 
-  Instagram, 
-  Linkedin, 
-  Mail, 
-  Phone, 
-  MapPin 
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  Mail,
+  Phone,
+  MapPin
 } from 'lucide-react';
 
 const Footer = () => {
-  const [footerData, setFooterData] = useState(null);
+  const { footerData, isLoading } = useData();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('content/landingpage/Footer.json');
-        if (!response.ok) {
-          throw new Error('Failed to fetch footer data');
-        }
-        const data = await response.json();
-        setFooterData(data);
-      } catch (error) {
-        console.error("Error loading footer data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (!footerData) {
-    return <footer className="bg-gray-900 h-40"></footer>;
+  if (isLoading || !footerData) {
+    return (
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="container mx-auto px-4">
+          <div className="animate-pulse">
+            <div className="h-6 bg-gray-700 rounded w-48 mb-8"></div>
+            <div className="grid md:grid-cols-4 gap-8">
+              <div className="space-y-4">
+                <div className="h-4 bg-gray-700 rounded w-full"></div>
+                <div className="h-4 bg-gray-700 rounded w-3/4"></div>
+              </div>
+              <div className="space-y-4">
+                <div className="h-4 bg-gray-700 rounded w-full"></div>
+                <div className="h-4 bg-gray-700 rounded w-3/4"></div>
+              </div>
+              <div className="space-y-4">
+                <div className="h-4 bg-gray-700 rounded w-full"></div>
+                <div className="h-4 bg-gray-700 rounded w-3/4"></div>
+              </div>
+              <div className="space-y-4">
+                <div className="h-4 bg-gray-700 rounded w-full"></div>
+                <div className="h-4 bg-gray-700 rounded w-3/4"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    );
   }
 
-  const getSocialIcon = (platform) => {
-    switch(platform) {
+  const getSocialIcon = (platform: string) => {
+    switch (platform) {
       case 'Instagram': return <Instagram size={20} />;
       case 'LinkedIn': return <Linkedin size={20} />;
+      case 'Facebook': return <Facebook size={20} />;
+      case 'Twitter': return <Twitter size={20} />;
       default: return null;
     }
   };
 
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <footer className="bg-gray-900 text-white py-12">
+      <div className="container mx-auto px-4">
+        <div className="grid md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
-            <h3 className="text-xl font-bold mb-4 text-white">{footerData.company_info.name}</h3>
-            <p className="text-gray-400 mb-4">{footerData.company_info.description}</p>
-            <div className="flex space-x-2">
-              {footerData.social_links.map((item, index) => (
-                <a 
+            <h3 className="text-xl font-semibold mb-4">{footerData.companyName}</h3>
+            <p className="text-gray-300 mb-4">{footerData.description}</p>
+            <div className="flex space-x-4">
+              {footerData.socialLinks?.map((social: any, index: number) => (
+                <a
                   key={index}
-                  href={item.url} 
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-gray-400 hover:text-white transition-colors"
-                  aria-label={item.platform}
                 >
-                  {getSocialIcon(item.platform)}
+                  {getSocialIcon(social.platform)}
                 </a>
               ))}
             </div>
           </div>
-          
+
           {/* Quick Links */}
           <div>
-            <h3 className="text-xl font-bold mb-4 text-white">Quick Links</h3>
+            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              {footerData.nav_links.map((link, index) => (
+              {footerData.quickLinks?.map((link: any, index: number) => (
                 <li key={index}>
-                  <Link to={link.url} className="text-gray-400 hover:text-white transition-colors">
+                  <Link
+                    to={link.url}
+                    className="text-gray-300 hover:text-white transition-colors"
+                  >
                     {link.text}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-          
+
           {/* Services */}
           <div>
-            <h3 className="text-xl font-bold mb-4 text-white">Services</h3>
+            <h3 className="text-lg font-semibold mb-4">Services</h3>
             <ul className="space-y-2">
-              {footerData.footer_services.map((service, index) => (
+              {footerData.services?.map((service: any, index: number) => (
                 <li key={index}>
-                  <a href={service.url} className="text-gray-400 hover:text-white transition-colors">
-                    {service.name}
-                  </a>
+                  <Link
+                    to={service.url}
+                    className="text-gray-300 hover:text-white transition-colors"
+                  >
+                    {service.text}
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
-          
+
           {/* Contact Info */}
           <div>
-            <h3 className="text-xl font-bold mb-4 text-white">Contact Us</h3>
-            <ul className="space-y-2">
-              <li className="flex items-start">
-                <MapPin size={18} className="mr-2 mt-1 text-adrig-blue" />
-                <span className="text-gray-400">{footerData.contact_info.address}</span>
-              </li>
-              <li className="flex items-center">
-                <Phone size={18} className="mr-2 text-adrig-blue" />
-                <span className="text-gray-400">{footerData.contact_info.phone}</span>
-              </li>
-              <li className="flex items-center">
-                <Mail size={18} className="mr-2 text-adrig-blue" />
-                <span className="text-gray-400">{footerData.contact_info.email}</span>
-              </li>
-            </ul>
+            <h3 className="text-lg font-semibold mb-4">Contact</h3>
+            <div className="space-y-2">
+              {footerData.contact?.email && (
+                <div className="flex items-center text-gray-300">
+                  <Mail size={16} className="mr-2" />
+                  <a href={`mailto:${footerData.contact.email}`} className="hover:text-white transition-colors">
+                    {footerData.contact.email}
+                  </a>
+                </div>
+              )}
+              {footerData.contact?.phone && (
+                <div className="flex items-center text-gray-300">
+                  <Phone size={16} className="mr-2" />
+                  <a href={`tel:${footerData.contact.phone}`} className="hover:text-white transition-colors">
+                    {footerData.contact.phone}
+                  </a>
+                </div>
+              )}
+              {footerData.contact?.address && (
+                <div className="flex items-start text-gray-300">
+                  <MapPin size={16} className="mr-2 mt-1 flex-shrink-0" />
+                  <span>{footerData.contact.address}</span>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-        
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center">
-  <p style={{ color: '#ffffff' }}>&copy; 2025 Adrig AI Technologies. All rights reserved.</p>
-</div>
+
+        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+          <p>&copy; {new Date().getFullYear()} {footerData.companyName}. All rights reserved.</p>
+        </div>
       </div>
     </footer>
   );
