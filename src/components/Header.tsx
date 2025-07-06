@@ -170,7 +170,7 @@ const Header = () => {
             </nav>
 
             {/* Auth buttons on right */}
-            <div className="flex items-center justify-end flex-1 space-x-3">
+            <div className="hidden md:flex items-center justify-end flex-1 space-x-3">
               {user ? (
                 <div className="flex items-center space-x-2">
                   <span className={`flex items-center text-sm ${isScrolled ? 'text-[#135bfb]' : 'text-white'}`}>
@@ -282,32 +282,32 @@ const Header = () => {
 
           {/* Auth buttons in mobile menu */}
           {user ? (
-            <div className="flex flex-col items-center space-y-4 mt-8">
+            <div className="flex flex-col items-center space-y-4 mt-8 w-full px-8">
               <div className="flex items-center text-lg text-gray-700">
                 <User size={20} className="mr-2" />
                 {user.user_metadata?.name || user.email?.split("@")[0]}
               </div>
               <Button
                 variant="outline"
-                className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
+                className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white w-full py-3 text-lg rounded-lg"
                 onClick={handleSignOut}
               >
-                <LogOut size={16} className="mr-2" />
+                <LogOut size={18} className="mr-2" />
                 Sign Out
               </Button>
             </div>
           ) : (
-            <div className="flex flex-col items-center space-y-4 mt-8">
+            <div className="flex flex-col items-center space-y-4 mt-8 w-full px-8">
               <Button
                 variant="outline"
-                className="bg-white border border-[#135bfb] text-[#135bfb] hover:bg-blue-100 hover:text-[#135bfb] w-32"
+                className="bg-white border border-[#135bfb] text-[#135bfb] hover:bg-blue-100 hover:text-[#135bfb] w-full py-3 text-lg rounded-lg"
                 onClick={openLoginDialog}
               >
                 Login
               </Button>
               <Button
                 variant="default"
-                className="bg-[#135bfb] text-white border border-[#135bfb] hover:bg-blue-700 hover:text-white font-semibold w-32"
+                className="bg-[#135bfb] text-white border border-[#135bfb] hover:bg-blue-700 hover:text-white font-semibold w-full py-3 text-lg rounded-lg"
                 onClick={openSignupDialog}
               >
                 Sign Up
