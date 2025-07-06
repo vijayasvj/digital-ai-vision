@@ -1,62 +1,95 @@
 import React, { useState, useEffect } from 'react';
 
-const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void }) => {
+interface LoadingScreenProps {
+    onComplete?: () => void;
+}
+
+const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
     const [progress, setProgress] = useState(0);
-    const [showLoader, setShowLoader] = useState(true);
+    const [isVisible, setIsVisible] = useState(true);
+    const [loadingText, setLoadingText] = useState('Initializing...');
 
     useEffect(() => {
-        const loadingSequence = async () => {
-            // Very quick, professional loading sequence
-            const steps = [25, 50, 75, 100];
+        const loadingSteps = [
+            { progress: 20, text: 'Loading assets...' },
+            { progress: 40, text: 'Preparing components...' },
+            { progress: 60, text: 'Setting up routes...' },
+            { progress: 80, text: 'Almost ready...' },
+            { progress: 100, text: 'Welcome to ADRIG!' }
+        ];
 
-            for (let i = 0; i < steps.length; i++) {
-                await new Promise(resolve => setTimeout(resolve, 150));
-                setProgress(steps[i]);
+        let currentStep = 0;
+
+        const interval = setInterval(() => {
+            if (currentStep < loadingSteps.length) {
+                const step = loadingSteps[currentStep];
+                setProgress(step.progress);
+                setLoadingText(step.text);
+                currentStep++;
+            } else {
+                clearInterval(interval);
+                // Hide loading screen after completion
+                setTimeout(() => {
+                    setIsVisible(false);
+                    onComplete?.();
+                }, 500);
             }
+        }, 400);
 
-            // Brief pause at 100%
-            await new Promise(resolve => setTimeout(resolve, 100));
+        return () => clearInterval(interval);
+    }, [onComplete]);
 
-            setShowLoader(false);
-            onLoadingComplete();
-        };
-
-        loadingSequence();
-    }, [onLoadingComplete]);
-
-    if (!showLoader) return null;
+    if (!isVisible) return null;
 
     return (
-        <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
-            <div className="text-center max-w-sm mx-auto px-6">
-                {/* Professional Logo */}
-                <div className="mb-6">
-                    <img
-                        src="/favicon.png"
-                        alt="ADRIG"
-                        className="w-12 h-12 mx-auto mb-3"
-                    />
+        <div className="fixed inset-0 z-[9999] bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 flex items-center justify-center">
+            <div className="text-center">
+                {/* Logo */}
+                <div className="mb-8">
+                    <div className="w-24 h-24 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-2xl animate-pulse">
+                        <span className="text-3xl font-bold text-blue-600">A</span>
+                    </div>
+                    <h1 className="text-4xl font-bold text-white mb-2">ADRIG</h1>
+                    <p className="text-blue-100 text-lg">AI Technologies</p>
                 </div>
 
-                {/* Company Name */}
-                <div className="mb-6">
-                    <h1 className="text-xl font-semibold text-gray-900 mb-1">ADRIG</h1>
-                    <p className="text-xs text-gray-500">AI Technologies</p>
+                {/* Loading animation */}
+                <div className="w-64 mx-auto mb-6">
+                    <div className="flex justify-center space-x-1 mb-4">
+                        {[...Array(3)].map((_, i) => (
+                            <div
+                                key={i}
+                                className="w-3 h-3 bg-white rounded-full animate-bounce"
+                                style={{
+                                    animationDelay: `${i * 0.1}s`,
+                                    animationDuration: '1s'
+                                }}
+                            />
+                        ))}
+                    </div>
+
+                    {/* Progress bar */}
+                    <div className="w-full bg-white bg-opacity-20 rounded-full h-2 mb-4">
+                        <div
+                            className="bg-white h-2 rounded-full transition-all duration-500 ease-out"
+                            style={{ width: `${progress}%` }}
+                        />
+                    </div>
+
+                    {/* Loading text */}
+                    <p className="text-white text-sm mb-2">
+                        {loadingText}
+                    </p>
+
+                    {/* Progress percentage */}
+                    <p className="text-blue-100 text-xs opacity-80">
+                        {Math.round(progress)}%
+                    </p>
                 </div>
 
-                {/* Professional Loading Bar */}
-                <div className="w-full bg-gray-200 rounded-full h-0.5 mb-3">
-                    <div
-                        className="bg-blue-600 h-0.5 rounded-full transition-all duration-200 ease-out"
-                        style={{ width: `${progress}%` }}
-                    />
-                </div>
-
-                {/* Progress Text */}
-                <p className="text-xs text-gray-400">
-                    {progress < 50 && "Loading..."}
-                    {progress >= 50 && progress < 100 && "Preparing..."}
-                    {progress >= 100 && "Ready"}
+                {/* Tagline */}
+                <p className="text-blue-100 text-sm opacity-80">
+                    Driving growth with AI
                 </p>
             </div>
         </div>
