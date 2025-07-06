@@ -280,44 +280,40 @@ const Header = () => {
             Contact
           </Link>
 
-          {/* Auth Section in Mobile Menu */}
-          <div className="border-t border-gray-200 pt-6 mt-6 w-full max-w-xs">
-            {user ? (
-              <div className="flex flex-col items-center space-y-4">
-                <div className="flex items-center text-gray-700">
-                  <User size={20} className="mr-2" />
-                  <span className="text-lg">
-                    {user.user_metadata?.name || user.email?.split("@")[0]}
-                  </span>
-                </div>
-                <Button
-                  variant="outline"
-                  className="w-full border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
-                  onClick={handleSignOut}
-                >
-                  <LogOut size={16} className="mr-2" />
-                  Sign Out
-                </Button>
+          {/* Auth buttons in mobile menu */}
+          {user ? (
+            <div className="flex flex-col items-center space-y-4 mt-8">
+              <div className="flex items-center text-lg text-gray-700">
+                <User size={20} className="mr-2" />
+                {user.user_metadata?.name || user.email?.split("@")[0]}
               </div>
-            ) : (
-              <div className="flex flex-col space-y-3">
-                <Button
-                  variant="outline"
-                  className="w-full border-[#135bfb] text-[#135bfb] hover:bg-[#135bfb] hover:text-white"
-                  onClick={openLoginDialog}
-                >
-                  Login
-                </Button>
-                <Button
-                  variant="default"
-                  className="w-full bg-[#135bfb] text-white hover:bg-blue-700"
-                  onClick={openSignupDialog}
-                >
-                  Sign Up
-                </Button>
-              </div>
-            )}
-          </div>
+              <Button
+                variant="outline"
+                className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
+                onClick={handleSignOut}
+              >
+                <LogOut size={16} className="mr-2" />
+                Sign Out
+              </Button>
+            </div>
+          ) : (
+            <div className="flex flex-col items-center space-y-4 mt-8">
+              <Button
+                variant="outline"
+                className="bg-white border border-[#135bfb] text-[#135bfb] hover:bg-blue-100 hover:text-[#135bfb] w-32"
+                onClick={openLoginDialog}
+              >
+                Login
+              </Button>
+              <Button
+                variant="default"
+                className="bg-[#135bfb] text-white border border-[#135bfb] hover:bg-blue-700 hover:text-white font-semibold w-32"
+                onClick={openSignupDialog}
+              >
+                Sign Up
+              </Button>
+            </div>
+          )}
         </nav>
       </div>
 
