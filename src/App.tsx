@@ -63,6 +63,11 @@ const App = () => {
         <TooltipProvider>
           <Toaster />
           <Sonner />
+          <script 
+              src="https://ai-chat-widget-production.up.railway.app/chatbot.min.js?apiKey=70d4e829-dcbf-499b-9f17-7e036a30fda4"
+              async
+              defer
+          ></script>
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
